@@ -29,19 +29,3 @@ class Cube:
         self.color = BLACK
         self.locked = False
 
-    def draw(self, surface, offset_x: int = 0, offset_y: int = 0, border: bool = True) -> None:
-        rect = pygame.Rect(
-            offset_x + self.x * self.size,
-            offset_y + self.y * self.size,
-            self.size,
-            self.size,
-        )
-        if not self.is_empty():
-            pygame.draw.rect(surface, self.color, rect)
-
-        # grid border
-        if border:
-            pygame.draw.rect(surface, GRID_COLOR, rect, 1)
-
-
-

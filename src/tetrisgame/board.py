@@ -80,8 +80,3 @@ class Board:
             else:
                 row -= 1
         return cleared
-
-    def draw(self, surface, offset_x: int = 0, offset_y: int = 0) -> None:
-        for row in self.grid:
-            for cube in row:
-                cube.draw(surface, offset_x, offset_y)
