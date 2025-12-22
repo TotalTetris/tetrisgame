@@ -3,8 +3,6 @@ import pygame, sys
 from grid import Grid
 from blocks import *
 
-
-
 pygame.init()
 white = (200, 200, 200)
 
@@ -16,7 +14,8 @@ clock = pygame.time.Clock()
 game_grid = Grid()
 game_grid.print_grid()
 
-block = OBlock()
+block = IBlock()
+# block.move(5, 3)
 
 i = 0
 j = 0
