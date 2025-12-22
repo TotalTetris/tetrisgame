@@ -2,7 +2,7 @@ import pygame
 import sys
 import random
 
-import Grid
+import grid
 import config
 
 # Initialize Pygame
@@ -91,7 +91,6 @@ def main():
         screen.fill(BLACK)
         grd = Grid.Grid()
         grd.draw_grid(screen)
-        draw_grid(screen)
         current_piece.draw(screen)
 
         pygame.display.flip()
