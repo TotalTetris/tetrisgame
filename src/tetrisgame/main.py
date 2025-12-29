@@ -2,6 +2,9 @@ import pygame
 import sys
 import random
 
+import grid
+import config
+
 # Initialize Pygame
 pygame.init()
 
@@ -47,7 +50,7 @@ SHAPES = [
 class Piece:
     def __init__(self, shape):
         self.shape = shape
-        self.color = random.choice(COLORS)
+        self.color = random.choice(config.COLORS)
         self.x = COLUMNS // 2 - len(shape[0]) // 2
         self.y = 0
 
@@ -66,14 +69,8 @@ class Piece:
                         )
                     )
 
-def draw_grid(surface):
-    for x in range(0, SCREEN_WIDTH, BLOCK_SIZE):
-        pygame.draw.line(surface, GRAY, (x, 0), (x, SCREEN_HEIGHT))
-    for y in range(0, SCREEN_HEIGHT, BLOCK_SIZE):
-        pygame.draw.line(surface, GRAY, (0, y), (SCREEN_WIDTH, y))
-
 def main():
-    screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+    screen = pygame.display.set_mode((config.SCREEN_WIDTH, config.SCREEN_HEIGHT))
     pygame.display.set_caption("Tetris - Basic Structure")
     clock = pygame.time.Clock()
 
@@ -92,11 +89,13 @@ def main():
 
         # Drawing
         screen.fill(BLACK)
-        draw_grid(screen)
+        grd = Grid.Grid()
+        grd.draw_grid(screen)
         current_piece.draw(screen)
 
         pygame.display.flip()
         clock.tick(FPS)
+
 
 if __name__ == "__main__":
     main()
