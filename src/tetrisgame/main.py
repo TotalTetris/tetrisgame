@@ -6,7 +6,8 @@ import sys
 import pygame
 
 from board import Board
-from config import SHAPES, COLORS, COLS, ROWS, BLOCK_SIZE, FALL_INTERVAL, BLACK
+# from config import SHAPES, COLORS, COLS, ROWS, BLOCK_SIZE, FALL_INTERVAL, BLACK
+from config import *
 
 
 def shape_cells(shape):
@@ -132,7 +133,8 @@ def main():
                 score += cleared * cleared * 10
 
                 current_tetromino = next_tetromino(board)
-                if not board.can_place(current_tetromino.cells(), current_tetromino.x, current_tetromino.y):
+                # game over when there are cubes in the top row get occupied
+                if not all(board.grid[0][x].is_empty() for x in range(board.cols)):
                     game_over = True
 
         # Drawing
