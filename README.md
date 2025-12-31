@@ -89,6 +89,7 @@ This makes the game easy to tune without touching core logic.
 
 ## What's Next?
 
+- Add restart after game over.
 - Add a start screen.
 - Add pause/resume.
 - Add a preview for the next piece.
