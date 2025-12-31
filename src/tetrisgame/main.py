@@ -6,8 +6,8 @@ import sys
 import pygame
 
 from board import Board
-from config import SHAPES, COLORS, COLS, ROWS, BLOCK_SIZE, FALL_INTERVAL
-BLACK = COLORS[7]
+from config import SHAPES, COLORS, COLS, ROWS, BLOCK_SIZE, FALL_INTERVAL, BLACK
+
 
 def shape_cells(shape):
     """

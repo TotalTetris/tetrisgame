@@ -58,9 +58,9 @@ COLORS = [
     (0, 255, 0), # S - green
     (255, 0, 0), # Z - red
     (160, 32, 240), # T - purple
-    (0, 0, 0), # Empty - black
-    (40, 40, 40), # Border - gray
 ]
+BLACK = (0, 0, 0)
+GRAY = (40, 40, 40)
 
 COLS = 10
 ROWS = 20

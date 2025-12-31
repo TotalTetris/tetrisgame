@@ -25,7 +25,7 @@ class Board:
     def inside(self, x: int, y: int) -> bool:
         return 0 <= x < self.cols and 0 <= y < self.rows
 
-    def is_empty(self, x: int, y: int) -> bool:
+    def available(self, x: int, y: int) -> bool:
         if not self.inside(x, y):
             return False
         return self.grid[y][x].is_empty()
@@ -42,7 +42,7 @@ class Board:
                 continue
             if not self.inside(gx, gy):
                 return False
-            if not self.is_empty(gx, gy):
+            if not self.available(gx, gy):
                 return False
         return True
 

@@ -2,9 +2,7 @@
 
 import pygame
 
-from config import COLORS
-BLACK = COLORS[7]
-GRID_COLOR = COLORS[8]
+from config import BLACK, GRAY
 
 
 class Cube:
@@ -41,4 +39,4 @@ class Cube:
             pygame.draw.rect(surface, self.color, rect)
 
         if border:
-            pygame.draw.rect(surface, GRID_COLOR, rect, 1)
+            pygame.draw.rect(surface, GRAY, rect, 1)
