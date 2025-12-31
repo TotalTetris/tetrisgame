@@ -2,8 +2,9 @@
 
 import pygame
 
-BLACK = (0, 0, 0)
-GRID_COLOR = (40, 40, 40)
+from config import COLORS
+BLACK = COLORS[7]
+GRID_COLOR = COLORS[8]
 
 
 class Cube:
@@ -26,7 +27,18 @@ class Cube:
         self.locked = locked
 
     def clear(self) -> None:
-        self.color = BLACK
+        self.color = BLACK # Black
         self.locked = False
 
+    def draw(self, surface, border: bool = True) -> None:
+        rect = pygame.Rect(
+            self.x * self.size,
+            self.y * self.size,
+            self.size,
+            self.size
+        )
+        if not self.is_empty():
+            pygame.draw.rect(surface, self.color, rect)
 
+        if border:
+            pygame.draw.rect(surface, GRID_COLOR, rect, 1)

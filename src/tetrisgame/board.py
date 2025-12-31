@@ -1,6 +1,6 @@
-from typing import List, Tuple
+# This is for creating the game board for the Tetris game.
 
-import pygame  # kept for extensibility (e.g. later adding board-level drawing effects)
+from typing import List, Tuple
 
 from cubes import Cube
 
@@ -33,12 +33,11 @@ class Board:
     def can_place(self, cells: List[Tuple[int, int]], offset_x: int, offset_y: int) -> bool:
         """
         Check if a piece with given local cells can be placed at (offset_x, offset_y).
-        cells is a list of (x, y) in piece-local coordinates (0..3).
+        cells is a list of (x, y) in tetromino-local coordinates (0..3).
         """
         for x, y in cells:
             gx = x + offset_x
             gy = y + offset_y
-            # allow being above the top of the board
             if gy < 0:
                 continue
             if not self.inside(gx, gy):
@@ -81,3 +80,7 @@ class Board:
                 row -= 1
         return cleared
 
+    def draw(self, surface) -> None:
+        for row in self.grid:
+            for cube in row:
+                cube.draw(surface)
