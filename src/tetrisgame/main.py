@@ -97,6 +97,7 @@ def main():
     current_tetromino = next_tetromino(board)
     score = 0
     font = pygame.font.SysFont("monospace", 24)
+    game_over_font = pygame.font.SysFont("monospace", 55, bold=True)
     game_over = False
 
     while True:
@@ -149,8 +150,9 @@ def main():
         screen.blit(score_surf, (10, 10))
 
         if game_over:
-            game_over_surf = font.render("Game Over", True, (255, 0, 0))
-            screen.blit(game_over_surf, (5, 30))
+            game_over_surf = game_over_font.render("Game Over", True, (255, 0, 0))
+            game_over_rect = game_over_surf.get_rect(center=screen.get_rect().center)
+            screen.blit(game_over_surf, game_over_rect)
 
         pygame.display.flip()
 
