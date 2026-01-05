@@ -6,7 +6,6 @@ import sys
 import pygame
 
 from board import Board
-# from config import SHAPES, COLORS, COLS, ROWS, BLOCK_SIZE, FALL_INTERVAL, BLACK
 from config import *
 
 
@@ -80,7 +79,7 @@ def draw_current_tetromino(surface, tetromino: Tetromino, board: Board):
             continue
         rect = pygame.Rect(gx * block, gy * block, block, block)
         pygame.draw.rect(surface, tetromino.color, rect)
-        pygame.draw.rect(surface, (40, 40, 40), rect, 1)
+        pygame.draw.rect(surface, GRAY, rect, 1)
 
 
 def main():
