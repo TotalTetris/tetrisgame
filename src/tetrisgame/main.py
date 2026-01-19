@@ -1,100 +1,166 @@
-import pygame
-import sys
+# This is the main function for the Tetris game.
+
 import random
+import sys
 
-import grid
-import config
+import pygame
 
-# Initialize Pygame
-pygame.init()
+from board import Board
+from config import *
 
-# Game constants
-SCREEN_WIDTH = 300
-SCREEN_HEIGHT = 600
-BLOCK_SIZE = 30
-COLUMNS = SCREEN_WIDTH // BLOCK_SIZE
-ROWS = SCREEN_HEIGHT // BLOCK_SIZE
-FPS = 60
 
-# Colors (R, G, B)
-BLACK = (0, 0, 0)
-GRAY = (50, 50, 50)
-WHITE = (255, 255, 255)
-COLORS = [
-    (0, 255, 255),  # Cyan
-    (0, 0, 255),    # Blue
-    (255, 165, 0),  # Orange
-    (255, 255, 0),  # Yellow
-    (0, 255, 0),    # Green
-    (128, 0, 128),  # Purple
-    (255, 0, 0)     # Red
-]
+def shape_cells(shape):
+    """
+    Convert a 4x4 shape into a list of (x, y) coordinates for occupied cells.
+    """
+    cells = []
+    for y, row in enumerate(shape):
+        for x, ch in enumerate(row):
+            if ch == "X":
+                cells.append((x, y))
+    return cells
 
-# Tetromino shapes (relative coordinates)
-SHAPES = [
-    [[1, 1, 1, 1]],  # I
-    [[1, 1, 1],
-     [0, 1, 0]],     # T
-    [[1, 1, 0],
-     [0, 1, 1]],     # S
-    [[0, 1, 1],
-     [1, 1, 0]],     # Z
-    [[1, 1],
-     [1, 1]],        # O
-    [[1, 1, 1],
-     [1, 0, 0]],     # L
-    [[1, 1, 1],
-     [0, 0, 1]]      # J
-]
 
-class Piece:
-    def __init__(self, shape):
+def rotate_shape(shape):
+    """
+    Rotate a shape 90 degrees clockwise.
+    """
+    size = 4
+    matrix = [list(row) for row in shape]
+    rotated = [["." for _ in range(size)] for _ in range(size)]
+    for y in range(size):
+        for x in range(size):
+            rotated[x][size - y - 1] = matrix[y][x]
+    return ["".join(row) for row in rotated]
+
+
+class Tetromino:
+    def __init__(self, shape, color, board: Board):
         self.shape = shape
-        self.color = random.choice(config.COLORS)
-        self.x = COLUMNS // 2 - len(shape[0]) // 2
-        self.y = 0
+        self.color = color
+        # center the shape on the board
+        self.x = board.cols // 2 - 2
+        self.y = -2
 
-    def draw(self, surface):
-        for row_idx, row in enumerate(self.shape):
-            for col_idx, cell in enumerate(row):
-                if cell:
-                    pygame.draw.rect(
-                        surface,
-                        self.color,
-                        pygame.Rect(
-                            (self.x + col_idx) * BLOCK_SIZE,
-                            (self.y + row_idx) * BLOCK_SIZE,
-                            BLOCK_SIZE,
-                            BLOCK_SIZE
-                        )
-                    )
+    def cells(self):
+        return shape_cells(self.shape)
+
+    def move(self, dx, dy, board: Board) -> bool:
+        new_x = self.x + dx
+        new_y = self.y + dy
+        if board.can_place(self.cells(), new_x, new_y):
+            self.x = new_x
+            self.y = new_y
+            return True
+        return False
+
+    def rotate(self, board: Board) -> None:
+        new_shape = rotate_shape(self.shape)
+        if board.can_place(shape_cells(new_shape), self.x, self.y):
+            self.shape = new_shape
+
+
+def next_tetromino(board: Board) -> Tetromino:
+    idx = random.randrange(len(SHAPES))
+    shape = SHAPES[idx]
+    color = COLORS[idx]
+    return Tetromino(shape, color, board)
+
+
+def draw_current_tetromino(surface, tetromino: Tetromino, board: Board):
+    """
+    Draw the current moving tetromino on the board.
+    """
+    block = board.block_size
+    for x, y in tetromino.cells():
+        gx = x + tetromino.x
+        gy = y + tetromino.y
+        if gy < 0:
+            continue
+        rect = pygame.Rect(gx * block, gy * block, block, block)
+        pygame.draw.rect(surface, tetromino.color, rect)
+        pygame.draw.rect(surface, GRAY, rect, 1)
+
 
 def main():
-    screen = pygame.display.set_mode((config.SCREEN_WIDTH, config.SCREEN_HEIGHT))
-    pygame.display.set_caption("Tetris - Basic Structure")
-    clock = pygame.time.Clock()
+    pygame.init()
+    cols, rows, block_size = COLS, ROWS, BLOCK_SIZE
+    board = Board(cols, rows, block_size)
+    screen = pygame.display.set_mode((board.width, board.height))
+    pygame.display.set_caption("Tetris")
 
-    # Create first piece
-    current_piece = Piece(random.choice(SHAPES))
+    clock = pygame.time.Clock()
+    fall_interval = FALL_INTERVAL
+    fall_timer = 0
+
+    current_tetromino = next_tetromino(board)
+    score = 0
+    font = pygame.font.SysFont("monospace", 24)
+    game_over_font = pygame.font.SysFont("monospace", 55, bold=True)
+    game_over = False
 
     while True:
+        dt = clock.tick(60)
+        fall_timer += dt
+
         # Event handling
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
 
-        # Game logic placeholder
-        # (Movement, collision, line clearing will go here)
+            if event.type == pygame.KEYDOWN and not game_over:
+                if event.key == pygame.K_LEFT:
+                    current_tetromino.move(-1, 0, board)
+                elif event.key == pygame.K_RIGHT:
+                    current_tetromino.move(1, 0, board)
+                elif event.key == pygame.K_DOWN:
+                    current_tetromino.move(0, 1, board)
+                elif event.key == pygame.K_UP:
+                    current_tetromino.rotate(board)
+
+        # Automatic falling
+        if not game_over and fall_timer >= fall_interval:
+            fall_timer = 0
+            if not current_tetromino.move(0, 1, board):
+                board.lock_piece(
+                    current_tetromino.cells(),
+                    current_tetromino.x,
+                    current_tetromino.y,
+                    current_tetromino.color
+                )
+                cleared = board.clear_lines()
+                score += cleared * cleared * 10
+
+                current_tetromino = next_tetromino(board)
+                # game over when there are cubes in the top row get occupied
+                if not all(board.grid[0][x].is_empty() for x in range(board.cols)):
+                    game_over = True
 
         # Drawing
         screen.fill(BLACK)
-        grd = Grid.Grid()
-        grd.draw_grid(screen)
-        current_piece.draw(screen)
+        board.draw(screen)
+
+        if not game_over:
+            draw_current_tetromino(screen, current_tetromino, board)
+
+        # Score / game over
+        score_surf = font.render(f"Score: {score}", True, (255, 255, 255))
+        screen.blit(score_surf, (10, 10))
+
+        if game_over:
+            game_over_surf = game_over_font.render("Game Over", True, (255, 0, 0))
+            game_over_rect = game_over_surf.get_rect(center=screen.get_rect().center)
+            screen.blit(game_over_surf, game_over_rect)
 
         pygame.display.flip()
-        clock.tick(FPS)
+
+        # Quit
+        key = pygame.key.get_pressed()
+        if key[pygame.K_ESCAPE]:
+            pygame.quit()
+            sys.exit()
+
 
 
 if __name__ == "__main__":

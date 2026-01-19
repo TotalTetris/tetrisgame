@@ -1,28 +1,42 @@
 # This is for creating cubes for the Tetris game.
 
-# Imports
 import pygame
-import numpy
 
-pygame.init()
+from config import BLACK, GRAY
 
-
-
-# Cube should have 2 modes, one empty and the other that can fall
-# When cube enters the game, the cube has a 'move' mode, when it reaches the bottom it has a 'static' mode.
 
 class Cube:
-    pass
+    """
+    A single square on the game board.
+    Coordinates (x, y) are in board grid units, not pixels.
+    """
+    def __init__(self, x: int, y: int, size: int, color=BLACK, locked: bool = False):
+        self.x = x
+        self.y = y
+        self.size = size
+        self.color = color
+        self.locked = locked  # used for collision detection
 
-class FourByFour:
-    pass
+    def is_empty(self) -> bool:
+        return self.color == BLACK and not self.locked
 
-class LBlock:
-    pass
+    def set(self, color, locked: bool = True) -> None:
+        self.color = color
+        self.locked = locked
 
-class TBlock:
-    pass
+    def clear(self) -> None:
+        self.color = BLACK # Black
+        self.locked = False
 
-class Tretrino:
-    pass
+    def draw(self, surface, border: bool = True) -> None:
+        rect = pygame.Rect(
+            self.x * self.size,
+            self.y * self.size,
+            self.size,
+            self.size
+        )
+        if not self.is_empty():
+            pygame.draw.rect(surface, self.color, rect)
 
+        if border:
+            pygame.draw.rect(surface, GRAY, rect, 1)
