@@ -1,6 +1,6 @@
 # tetrisgame
 
-This is a TretisGame
+This is a TetrisGame
 
 A simple, modular implementation of the classic **Tetris** game written in Python.  
 The project focuses on clear separation of responsibilities between game logic, board representation, and rendering, making it suitable for learning, extension, and experimentation.
