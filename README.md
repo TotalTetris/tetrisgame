@@ -93,6 +93,7 @@ This makes the game easy to tune without touching core logic.
 - Add a start screen.
 - Add pause/resume.
 - Add a preview for the next piece.
+- Add speed up with time.
 - ......
 
 

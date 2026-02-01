@@ -1,7 +1,7 @@
 import config
 import pygame, sys
-from grid import Grid
-from blocks import *
+from unused.grid import Grid
+from unused.blocks import *
 
 pygame.init()
 white = (200, 200, 200)
