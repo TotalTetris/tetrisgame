@@ -29,6 +29,7 @@ class Cube:
         self.locked = False
 
     def draw(self, surface, border: bool = True) -> None:
+        """Draws cell with optional border if not empty"""
         rect = pygame.Rect(
             self.x * self.size,
             self.y * self.size,

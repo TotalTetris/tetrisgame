@@ -92,6 +92,17 @@ This makes the game easy to tune without touching core logic.
 
 ---
 
+## How to Play
+
+- Left/Right arrow: move the piece horizontally
+- Down arrow: soft drop
+- Space: hard drop
+- Up arrow: rotate
+- R: restart after game over
+- Esc: quit
+
+---
+
 ## What's Next?
 
 - Add a start screen.
@@ -99,4 +110,3 @@ This makes the game easy to tune without touching core logic.
 - Add a preview for the next piece.
 - Add speed up with time.
 - ......
-

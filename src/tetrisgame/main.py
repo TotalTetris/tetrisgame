@@ -76,6 +76,7 @@ def draw_current_tetromino(surface, tetromino: Tetromino, board: Board):
     Draw the current moving tetromino on the board.
     """
     block = board.block_size
+    # Draws current tetromino block if in bounds
     for x, y in tetromino.cells():
         gx = x + tetromino.x
         gy = y + tetromino.y
@@ -87,6 +88,7 @@ def draw_current_tetromino(surface, tetromino: Tetromino, board: Board):
 
 
 def main():
+    """Initializes and runs the Tetris game"""
     pygame.init()
     cols, rows, block_size = COLS, ROWS, BLOCK_SIZE
     board = Board(cols, rows, block_size)
