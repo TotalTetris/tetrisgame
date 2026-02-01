@@ -80,20 +80,23 @@ This makes the game easy to tune without touching core logic.
 ## How to Run
 
 1. Ensure you have Python 3 installed.
-2. Install required dependencies (if any, e.g. `pygame`).
-3. Run the game:
+2. Install dependencies:
    ```bash
+   python -m pip install -r requirements.txt
+   ```
+3. Run the game from the package directory:
+   ```bash
+   cd src/tetrisgame
    python main.py
+   ```
 
 ---
 
 ## What's Next?
 
-- Add restart after game over.
 - Add a start screen.
 - Add pause/resume.
 - Add a preview for the next piece.
 - Add speed up with time.
 - ......
-
 

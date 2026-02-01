@@ -59,6 +59,10 @@ class Tetromino:
         if board.can_place(shape_cells(new_shape), self.x, self.y):
             self.shape = new_shape
 
+    def hard_drop(self, board: Board) -> None:
+        while self.move(0, 1, board):
+            pass
+
 
 def next_tetromino(board: Board) -> Tetromino:
     idx = random.randrange(len(SHAPES))
@@ -91,14 +95,17 @@ def main():
 
     clock = pygame.time.Clock()
     fall_interval = FALL_INTERVAL
-    fall_timer = 0
-
-    current_tetromino = next_tetromino(board)
-    score = 0
     font = pygame.font.SysFont("monospace", 24)
     game_over_font = pygame.font.SysFont("monospace", 55, bold=True)
-    game_over = False
 
+    def reset_game():
+        new_board = Board(cols, rows, block_size)
+        new_tetromino = next_tetromino(new_board)
+        return new_board, new_tetromino, 0, 0, False
+
+    board, current_tetromino, score, fall_timer, game_over = reset_game()
+
+    # Main game loop handles events and rendering
     while True:
         dt = clock.tick(60)
         fall_timer += dt
@@ -109,15 +116,21 @@ def main():
                 pygame.quit()
                 sys.exit()
 
-            if event.type == pygame.KEYDOWN and not game_over:
-                if event.key == pygame.K_LEFT:
-                    current_tetromino.move(-1, 0, board)
-                elif event.key == pygame.K_RIGHT:
-                    current_tetromino.move(1, 0, board)
-                elif event.key == pygame.K_DOWN:
-                    current_tetromino.move(0, 1, board)
-                elif event.key == pygame.K_UP:
-                    current_tetromino.rotate(board)
+            if event.type == pygame.KEYDOWN:
+                if game_over and event.key == pygame.K_r:
+                    board, current_tetromino, score, fall_timer, game_over = reset_game()
+                elif not game_over:
+                    # Handles tetromino movement and rotation based on keypresses
+                    if event.key == pygame.K_LEFT:
+                        current_tetromino.move(-1, 0, board)
+                    elif event.key == pygame.K_RIGHT:
+                        current_tetromino.move(1, 0, board)
+                    elif event.key == pygame.K_DOWN:
+                        current_tetromino.move(0, 1, board)
+                    elif event.key == pygame.K_UP:
+                        current_tetromino.rotate(board)
+                    elif event.key == pygame.K_SPACE:
+                        current_tetromino.hard_drop(board)
 
         # Automatic falling
         if not game_over and fall_timer >= fall_interval:
@@ -150,8 +163,11 @@ def main():
 
         if game_over:
             game_over_surf = game_over_font.render("Game Over", True, (255, 0, 0))
+            restart_surf = font.render("Press R to restart", True, (255, 255, 255))
             game_over_rect = game_over_surf.get_rect(center=screen.get_rect().center)
+            restart_rect = restart_surf.get_rect(center=(game_over_rect.centerx, game_over_rect.bottom + 50))
             screen.blit(game_over_surf, game_over_rect)
+            screen.blit(restart_surf, restart_rect)
 
         pygame.display.flip()
 
