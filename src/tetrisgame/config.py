@@ -1,3 +1,5 @@
+"""TODO"""
+
 SHAPES = [
     # I
     [
@@ -49,6 +51,22 @@ SHAPES = [
         "....",
     ],
 ]
+
+
+# TODO: this could be a class
+class Colors:
+    """Store color values."""
+
+    WHITE = (255, 255, 255)
+    ...
+
+
+class Text:
+    """Store displayed text."""
+
+    SCORE_TEMPLATE = "Score: {score}"
+    GAME_OVER = "Game Over"
+
 
 COLORS = [
     (0, 255, 255),  # I - cyan

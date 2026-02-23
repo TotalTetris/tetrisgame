@@ -19,6 +19,7 @@ class Cube:
         self.locked = locked  # used for collision detection
 
     def is_empty(self) -> bool:
+        """TODO doc."""
         return self.color == BLACK and not self.locked
 
     def set(self, color, locked: bool = True) -> None:
@@ -26,7 +27,7 @@ class Cube:
         self.locked = locked
 
     def clear(self) -> None:
-        self.color = BLACK  # Black
+        self.color = BLACK  # Black TODO unnecessary comment (leftover from refactor?)
         self.locked = False
 
     def draw(self, surface, border: bool = True) -> None:

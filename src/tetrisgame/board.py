@@ -2,6 +2,8 @@
 
 from typing import List, Tuple
 
+import pygame
+
 from cubes import Cube
 
 
@@ -11,6 +13,7 @@ class Board:
     """
 
     def __init__(self, cols: int = 10, rows: int = 20, block_size: int = 30):
+        """TODO doc."""
         self.cols = cols
         self.rows = rows
         self.block_size = block_size
@@ -22,10 +25,14 @@ class Board:
             [Cube(x, y, block_size) for x in range(cols)] for y in range(rows)
         ]
 
+    # TODO: be a bit more explicit in naming - inside board boundaries
+    #  I like to name bool returns like: is_inside -> clear bool return
     def inside(self, x: int, y: int) -> bool:
+        """TODO doc."""
         return 0 <= x < self.cols and 0 <= y < self.rows
 
     def available(self, x: int, y: int) -> bool:
+        """TODO doc."""
         if not self.inside(x, y):
             return False
         return self.grid[y][x].is_empty()
@@ -42,12 +49,14 @@ class Board:
             gy = y + offset_y
             if gy < 0:
                 continue
+            # TODO: This is check in available too
             if not self.inside(gx, gy):
                 return False
             if not self.available(gx, gy):
                 return False
         return True
 
+    # TODO: typing cells
     def lock_piece(self, cells, offset_x: int, offset_y: int, color) -> None:
         """
         Permanently place a piece onto the board.
@@ -82,7 +91,8 @@ class Board:
                 row -= 1
         return cleared
 
-    def draw(self, surface) -> None:
+    def draw(self, surface: pygame.Surface) -> None:
+        """TODO doc."""
         for row in self.grid:
             for cube in row:
                 cube.draw(surface)
