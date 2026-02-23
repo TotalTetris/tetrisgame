@@ -51,13 +51,13 @@ SHAPES = [
 ]
 
 COLORS = [
-    (0, 255, 255), # I - cyan
-    (0, 0, 255), # J - blue
-    (255, 165, 0), # L - orange
-    (255, 255, 0), # O - yellow
-    (0, 255, 0), # S - green
-    (255, 0, 0), # Z - red
-    (160, 32, 240), # T - purple
+    (0, 255, 255),  # I - cyan
+    (0, 0, 255),  # J - blue
+    (255, 165, 0),  # L - orange
+    (255, 255, 0),  # O - yellow
+    (0, 255, 0),  # S - green
+    (255, 0, 0),  # Z - red
+    (160, 32, 240),  # T - purple
 ]
 BLACK = (0, 0, 0)
 GRAY = (40, 40, 40)
@@ -66,4 +66,4 @@ COLS = 10
 ROWS = 20
 BLOCK_SIZE = 30
 
-FALL_INTERVAL = 500 # milliseconds
+FALL_INTERVAL = 500  # milliseconds

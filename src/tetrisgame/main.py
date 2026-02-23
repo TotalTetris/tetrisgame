@@ -120,7 +120,9 @@ def main():
 
             if event.type == pygame.KEYDOWN:
                 if game_over and event.key == pygame.K_r:
-                    board, current_tetromino, score, fall_timer, game_over = reset_game()
+                    board, current_tetromino, score, fall_timer, game_over = (
+                        reset_game()
+                    )
                 elif not game_over:
                     # Handles tetromino movement and rotation based on keypresses
                     if event.key == pygame.K_LEFT:
@@ -142,7 +144,7 @@ def main():
                     current_tetromino.cells(),
                     current_tetromino.x,
                     current_tetromino.y,
-                    current_tetromino.color
+                    current_tetromino.color,
                 )
                 cleared = board.clear_lines()
                 score += cleared * cleared * 10
@@ -167,7 +169,9 @@ def main():
             game_over_surf = game_over_font.render("Game Over", True, (255, 0, 0))
             restart_surf = font.render("Press R to restart", True, (255, 255, 255))
             game_over_rect = game_over_surf.get_rect(center=screen.get_rect().center)
-            restart_rect = restart_surf.get_rect(center=(game_over_rect.centerx, game_over_rect.bottom + 50))
+            restart_rect = restart_surf.get_rect(
+                center=(game_over_rect.centerx, game_over_rect.bottom + 50)
+            )
             screen.blit(game_over_surf, game_over_rect)
             screen.blit(restart_surf, restart_rect)
 
@@ -178,7 +182,6 @@ def main():
         if key[pygame.K_ESCAPE]:
             pygame.quit()
             sys.exit()
-
 
 
 if __name__ == "__main__":

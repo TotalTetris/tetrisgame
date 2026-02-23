@@ -9,6 +9,7 @@ class Board:
     """
     The Tetris board composed of Cube objects.
     """
+
     def __init__(self, cols: int = 10, rows: int = 20, block_size: int = 30):
         self.cols = cols
         self.rows = rows
@@ -18,8 +19,7 @@ class Board:
 
         # grid[y][x]
         self.grid: List[List[Cube]] = [
-            [Cube(x, y, block_size) for x in range(cols)]
-            for y in range(rows)
+            [Cube(x, y, block_size) for x in range(cols)] for y in range(rows)
         ]
 
     def inside(self, x: int, y: int) -> bool:
@@ -30,7 +30,9 @@ class Board:
             return False
         return self.grid[y][x].is_empty()
 
-    def can_place(self, cells: List[Tuple[int, int]], offset_x: int, offset_y: int) -> bool:
+    def can_place(
+        self, cells: List[Tuple[int, int]], offset_x: int, offset_y: int
+    ) -> bool:
         """
         Check if a piece with given local cells can be placed at (offset_x, offset_y).
         cells is a list of (x, y) in tetromino-local coordinates (0..3).
