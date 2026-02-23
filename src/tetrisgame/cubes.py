@@ -10,6 +10,7 @@ class Cube:
     A single square on the game board.
     Coordinates (x, y) are in board grid units, not pixels.
     """
+
     def __init__(self, x: int, y: int, size: int, color=BLACK, locked: bool = False):
         self.x = x
         self.y = y
@@ -18,6 +19,7 @@ class Cube:
         self.locked = locked  # used for collision detection
 
     def is_empty(self) -> bool:
+        """TODO doc."""
         return self.color == BLACK and not self.locked
 
     def set(self, color, locked: bool = True) -> None:
@@ -25,17 +27,12 @@ class Cube:
         self.locked = locked
 
     def clear(self) -> None:
-        self.color = BLACK # Black
+        self.color = BLACK  # Black TODO unnecessary comment (leftover from refactor?)
         self.locked = False
 
     def draw(self, surface, border: bool = True) -> None:
         """Draws cell with optional border if not empty"""
-        rect = pygame.Rect(
-            self.x * self.size,
-            self.y * self.size,
-            self.size,
-            self.size
-        )
+        rect = pygame.Rect(self.x * self.size, self.y * self.size, self.size, self.size)
         if not self.is_empty():
             pygame.draw.rect(surface, self.color, rect)
 
