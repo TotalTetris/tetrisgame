@@ -1,69 +1,86 @@
-SHAPES = [
-    # I
-    [
+"""Configuration File"""
+
+
+class Shapes:
+    """Store the shapes of the Tetrominos."""
+
+    I = [
         "....",
         "XXXX",
         "....",
         "....",
-    ],
-    # J
-    [
+    ]
+    J = [
         "....",
         ".X..",
         ".XXX",
         "....",
-    ],
-    # L
-    [
+    ]
+    L = [
         "....",
         "...X",
         ".XXX",
         "....",
-    ],
-    # O
-    [
+    ]
+    O = [
         "....",
         ".XX.",
         ".XX.",
         "....",
-    ],
-    # S
-    [
+    ]
+    S = [
         "....",
         ".XX.",
         "XX..",
         "....",
-    ],
-    # Z
-    [
+    ]
+    Z = [
         "....",
         "XX..",
         ".XX.",
         "....",
-    ],
-    # T
-    [
+    ]
+    T = [
         "....",
         ".X..",
         "XXX.",
         "....",
-    ],
-]
+    ]
 
-COLORS = [
-    (0, 255, 255), # I - cyan
-    (0, 0, 255), # J - blue
-    (255, 165, 0), # L - orange
-    (255, 255, 0), # O - yellow
-    (0, 255, 0), # S - green
-    (255, 0, 0), # Z - red
-    (160, 32, 240), # T - purple
-]
-BLACK = (0, 0, 0)
-GRAY = (40, 40, 40)
+    SHAPES = [
+        I, J, L, O, S, Z, T
+    ]
 
-COLS = 10
-ROWS = 20
-BLOCK_SIZE = 30
 
-FALL_INTERVAL = 500 # milliseconds
+class Colors:
+    """Store color values."""
+
+    CYAN = (0, 255, 255)
+    BLUE = (0, 0, 255)
+    ORANGE = (255, 165, 0)
+    YELLOW = (255, 255, 0)
+    GREEN = (0, 255, 0)
+    RED = (255, 0, 0)
+    PURPLE = (160, 32, 240)
+
+    WHITE = (255, 255, 255)
+    BLACK = (0, 0, 0)
+    GRAY = (40, 40, 40)
+
+    COLORS = [
+        CYAN, BLUE, ORANGE, YELLOW, GREEN, RED, PURPLE
+    ]
+
+
+class Text:
+    pass
+
+
+class Constants:
+    """Store game constants."""
+
+    COLS = 10
+    ROWS = 20
+    BLOCK_SIZE = 30
+
+    FALL_INTERVAL = 500  # milliseconds
