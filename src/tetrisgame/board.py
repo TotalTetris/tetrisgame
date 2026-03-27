@@ -1,15 +1,24 @@
 # This is for creating the game board for the Tetris game.
 
-from typing import List, Tuple
+import pygame as pg
 
 from cubes import Cube
+from typing import List, Tuple
 
 
 class Board:
     """
-    The Tetris board composed of Cube objects.
+    The Tetris board build with Cube objects.
     """
+
     def __init__(self, cols: int = 10, rows: int = 20, block_size: int = 30):
+        """
+        Initialise a Board.
+        :param cols: The number of columns in the board.
+        :param rows: The number of rows in the board.
+        :param block_size: The size of each block in the board.
+        """
+
         self.cols = cols
         self.rows = rows
         self.block_size = block_size
@@ -23,17 +32,23 @@ class Board:
         ]
 
     def inside(self, x: int, y: int) -> bool:
+        """Checks if a cube is within the board or outside."""
         return 0 <= x < self.cols and 0 <= y < self.rows
 
     def available(self, x: int, y: int) -> bool:
+        """Checks if a space on the board is available for a cube to enter it."""
         if not self.inside(x, y):
             return False
         return self.grid[y][x].is_empty()
 
     def can_place(self, cells: List[Tuple[int, int]], offset_x: int, offset_y: int) -> bool:
         """
-        Check if a piece with given local cells can be placed at (offset_x, offset_y).
-        cells is a list of (x, y) in tetromino-local coordinates (0..3).
+        Checks if a piece with given local cells can be placed at (offset_x, offset_y).
+        Cells is a list of (x, y) in tetromino-local coordinates (0..3).
+        :param cells: The cells of the board.
+        :param offset_x: The offset of the cube in the x coordinate.
+        :param offset_y: The offset of the cube in the y coordinate.
+        :return: True
         """
         for x, y in cells:
             gx = x + offset_x
@@ -49,6 +64,11 @@ class Board:
     def lock_piece(self, cells, offset_x: int, offset_y: int, color) -> None:
         """
         Permanently place a piece onto the board.
+        :param cells: The cells of the grid.
+        :param offset_x: The offset of the cube in the x coordinate.
+        :param offset_y: The offset of the cube in the y coordinate.
+        :param color: The color of the cube.
+        :return: None
         """
         for x, y in cells:
             gx = x + offset_x
@@ -80,7 +100,12 @@ class Board:
                 row -= 1
         return cleared
 
-    def draw(self, surface) -> None:
+    def draw(self, surface: pg.Surface | pg.SurfaceType) -> None:
+        """
+        Draw the cube onto the pygame surface.
+        :param surface: The pygame surface on which to draw the cube on.
+        :return:
+        """
         for row in self.grid:
             for cube in row:
                 cube.draw(surface)
