@@ -31,13 +31,13 @@ class Board:
             for y in range(rows)
         ]
 
-    def inside(self, x: int, y: int) -> bool:
+    def is_inside(self, x: int, y: int) -> bool:
         """Checks if a cube is within the board or outside."""
         return 0 <= x < self.cols and 0 <= y < self.rows
 
-    def available(self, x: int, y: int) -> bool:
+    def is_available(self, x: int, y: int) -> bool:
         """Checks if a space on the board is available for a cube to enter it."""
-        if not self.inside(x, y):
+        if not self.is_inside(x, y):
             return False
         return self.grid[y][x].is_empty()
 
@@ -55,9 +55,9 @@ class Board:
             gy = y + offset_y
             if gy < 0:
                 continue
-            if not self.inside(gx, gy):
+            if not self.is_inside(gx, gy):
                 return False
-            if not self.available(gx, gy):
+            if not self.is_available(gx, gy):
                 return False
         return True
 
@@ -73,7 +73,7 @@ class Board:
         for x, y in cells:
             gx = x + offset_x
             gy = y + offset_y
-            if self.inside(gx, gy):
+            if self.is_inside(gx, gy):
                 cube = self.grid[gy][gx]
                 cube.set(color, locked=True)
 
