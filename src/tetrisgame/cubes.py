@@ -2,7 +2,7 @@
 
 import pygame
 
-from config import BLACK, GRAY
+from config import Colors
 
 
 class Cube:
@@ -11,7 +11,7 @@ class Cube:
     Coordinates (x, y) are in board grid units, not pixels.
     """
 
-    def __init__(self, x: int, y: int, size: int, color=BLACK, locked: bool = False):
+    def __init__(self, x: int, y: int, size: int, color=Colors.BLACK, locked: bool = False):
         """
         Initialise a Cube.
         :param x: The x coordinate position of the cube on the grid.
@@ -29,7 +29,7 @@ class Cube:
 
     def is_empty(self) -> bool:
         """Defines an empty cube on the board."""
-        return self.color == BLACK and not self.locked
+        return self.color == Colors.BLACK and not self.locked
 
     def set(self, color: tuple[int], locked: bool = True) -> None:
         """Set the color of the cube and locks it in place on the board."""
@@ -38,7 +38,7 @@ class Cube:
 
     def clear(self) -> None:
         """Clears the cube from the board."""
-        self.color = BLACK
+        self.color = Colors.BLACK
         self.locked = False
 
     def draw(self, surface: pygame.Surface, border: bool = True) -> None:
@@ -53,4 +53,4 @@ class Cube:
             pygame.draw.rect(surface, self.color, rect)
 
         if border:
-            pygame.draw.rect(surface, GRAY, rect, 1)
+            pygame.draw.rect(surface, Colors.GRAY, rect, 1)
