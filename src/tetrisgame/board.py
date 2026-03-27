@@ -1,6 +1,6 @@
 # This is for creating the game board for the Tetris game.
 
-import pygame as pg
+import pygame
 
 from cubes import Cube
 from typing import List, Tuple
@@ -100,7 +100,7 @@ class Board:
                 row -= 1
         return cleared
 
-    def draw(self, surface: pg.Surface | pg.SurfaceType) -> None:
+    def draw(self, surface: pygame.Surface | pygame.SurfaceType) -> None:
         """
         Draw the cube onto the pygame surface.
         :param surface: The pygame surface on which to draw the cube on.
