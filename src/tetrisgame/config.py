@@ -73,7 +73,16 @@ class Colors:
 
 
 class Text:
-    pass
+    """Store text for the game."""
+
+    CAPTION = "Tetris"
+    GAME_OVER = "Game Over"
+    RESTART_MESSAGE = "Press R to restart"
+
+    @staticmethod
+    def score(score: int | float):
+        """Returns the score format."""
+        return f"Score: {score}"
 
 
 class Constants:
@@ -84,3 +93,5 @@ class Constants:
     BLOCK_SIZE = 30
 
     FALL_INTERVAL = 500  # milliseconds
+
+    GAME_FONT = "monospace"
