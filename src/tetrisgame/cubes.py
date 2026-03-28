@@ -1,4 +1,4 @@
-# This is for creating cubes for the Tetris game.
+"""This is for creating cubes for the Tetris game."""
 
 import pygame
 
