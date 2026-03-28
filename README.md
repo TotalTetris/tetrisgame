@@ -79,7 +79,7 @@ This makes the game easy to tune without touching core logic.
 
 ## How to Run
 
-1. Ensure you have Python 3 installed.
+1. Ensure you have Python >= 3.12 installed.
 2. Install dependencies:
    ```bash
    python -m pip install -r requirements.txt
@@ -103,10 +103,4 @@ This makes the game easy to tune without touching core logic.
 
 ---
 
-## What's Next?
 
-- Add a start screen.
-- Add pause/resume.
-- Add a preview for the next piece.
-- Add speed up with time.
-- ......
