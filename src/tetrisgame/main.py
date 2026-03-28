@@ -16,19 +16,18 @@ from tetromino import (
 def main():
     """Initializes and runs the Tetris game"""
     pygame.init()
-    cols, rows, block_size = Constants.COLS, Constants.ROWS, Constants.BLOCK_SIZE
-    board = Board(cols, rows, block_size)
+    board = Board(Constants.COLS, Constants.ROWS, Constants.BLOCK_SIZE)
     screen = pygame.display.set_mode((board.width, board.height))
-    pygame.display.set_caption("Tetris")
+    pygame.display.set_caption(Text.CAPTION)
 
     clock = pygame.time.Clock()
     fall_interval = Constants.FALL_INTERVAL
-    font = pygame.font.SysFont("monospace", 24)
-    game_over_font = pygame.font.SysFont("monospace", 55, bold=True)
+    font = pygame.font.SysFont(Constants.GAME_FONT, 24)
+    game_over_font = pygame.font.SysFont(Constants.GAME_FONT, 55, bold=True)
 
     def reset_game():
         """Restart the game with a new board."""
-        new_board = Board(cols, rows, block_size)
+        new_board = Board(Constants.COLS, Constants.ROWS, Constants.BLOCK_SIZE)
         new_tetromino = TetronimoFactory.create_next_tetromino(new_board)
         return new_board, new_tetromino, 0, 0, False
 
@@ -49,7 +48,7 @@ def main():
                 if game_over and event.key == pygame.K_r:
                     board, current_tetromino, score, fall_timer, game_over = reset_game()
                 elif not game_over:
-                    # Handles tetromino movement and rotation based on keypresses
+                    # Handles tetromino movement and rotation based on key presses
                     if event.key == pygame.K_LEFT:
                         current_tetromino.move(-1, 0, board)
                     elif event.key == pygame.K_RIGHT:
@@ -87,12 +86,12 @@ def main():
             TetronimoFactory.draw_current_tetromino(screen, current_tetromino, board)
 
         # Score / game over
-        score_surf = font.render(f"Score: {score}", True, (255, 255, 255))
+        score_surf = font.render(Text.score(score), True, Colors.WHITE)
         screen.blit(score_surf, (10, 10))
 
         if game_over:
-            game_over_surf = game_over_font.render("Game Over", True, (255, 0, 0))
-            restart_surf = font.render("Press R to restart", True, (255, 255, 255))
+            game_over_surf = game_over_font.render(Text.GAME_OVER, True, Colors.RED)
+            restart_surf = font.render(Text.RESTART_MESSAGE, True, Colors.WHITE)
             game_over_rect = game_over_surf.get_rect(center=screen.get_rect().center)
             restart_rect = restart_surf.get_rect(center=(game_over_rect.centerx, game_over_rect.bottom + 50))
             screen.blit(game_over_surf, game_over_rect)
