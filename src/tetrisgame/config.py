@@ -47,9 +47,7 @@ class Shapes:
         "....",
     ]
 
-    SHAPES = [
-        I, J, L, O, S, Z, T
-    ]
+    SHAPES = [I, J, L, O, S, Z, T]
 
 
 class Colors:
@@ -67,9 +65,7 @@ class Colors:
     BLACK = (0, 0, 0)
     GRAY = (40, 40, 40)
 
-    COLORS = [
-        CYAN, BLUE, ORANGE, YELLOW, GREEN, RED, PURPLE
-    ]
+    COLORS = [CYAN, BLUE, ORANGE, YELLOW, GREEN, RED, PURPLE]
 
 
 class Text:

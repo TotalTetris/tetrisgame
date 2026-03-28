@@ -2,15 +2,14 @@ import random
 import pygame
 
 from board import Board
-from config import (
-    Colors, Shapes
-)
+from config import Colors, Shapes
 
 
 class Tetromino:
     """
     A Tetromino object.
     """
+
     def __init__(self, shape, color, board: Board):
         self.shape = shape
         self.color = color
@@ -85,7 +84,9 @@ class TetronimoFactory:
     """Builds Tetrominos."""
 
     @staticmethod
-    def draw_current_tetromino(surface: pygame.Surface, tetromino: Tetromino, board: Board) -> None:
+    def draw_current_tetromino(
+        surface: pygame.Surface, tetromino: Tetromino, board: Board
+    ) -> None:
         """
         Draw the current moving tetromino on the board.
         """
@@ -107,4 +108,3 @@ class TetronimoFactory:
         shape = Shapes.SHAPES[idx]
         color = Colors.COLORS[idx]
         return Tetromino(shape, color, board)
-

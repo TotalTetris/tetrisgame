@@ -27,8 +27,7 @@ class Board:
 
         # grid[y][x]
         self.grid: List[List[Cube]] = [
-            [Cube(x, y, block_size) for x in range(cols)]
-            for y in range(rows)
+            [Cube(x, y, block_size) for x in range(cols)] for y in range(rows)
         ]
 
     def is_inside(self, x: int, y: int) -> bool:
@@ -41,7 +40,9 @@ class Board:
             return False
         return self.grid[y][x].is_empty()
 
-    def can_place(self, cells: List[Tuple[int, int]], offset_x: int, offset_y: int) -> bool:
+    def can_place(
+        self, cells: List[Tuple[int, int]], offset_x: int, offset_y: int
+    ) -> bool:
         """
         Checks if a piece with given local cells can be placed at (offset_x, offset_y).
         Cells is a list of (x, y) in tetromino-local coordinates (0..3).

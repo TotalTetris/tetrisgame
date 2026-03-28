@@ -11,7 +11,9 @@ class Cube:
     Coordinates (x, y) are in board grid units, not pixels.
     """
 
-    def __init__(self, x: int, y: int, size: int, color=Colors.BLACK, locked: bool = False):
+    def __init__(
+        self, x: int, y: int, size: int, color=Colors.BLACK, locked: bool = False
+    ):
         """
         Initialise a Cube.
         :param x: The x coordinate position of the cube on the grid.
@@ -43,12 +45,7 @@ class Cube:
 
     def draw(self, surface: pygame.Surface, border: bool = True) -> None:
         """Draws cell with optional border if not empty"""
-        rect = pygame.Rect(
-            self.x * self.size,
-            self.y * self.size,
-            self.size,
-            self.size
-        )
+        rect = pygame.Rect(self.x * self.size, self.y * self.size, self.size, self.size)
         if not self.is_empty():
             pygame.draw.rect(surface, self.color, rect)
 
