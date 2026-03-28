@@ -42,8 +42,16 @@ The game is structured around three main concepts:
   - Detecting collisions and boundaries
   - Clearing completed lines
   - Rendering the fixed (locked) blocks
+  
+### 3. Tetromino (`tetromino.py`)
+- Represents Tetromino pieces that are essential to the game.
+- Responsibilities:
+  - Build Tetromino pieces from shapes provided in `config.py`
+  - Rotation and movement of Tetromino pieces on the grid
+  - Drawing the Tetromino on the pygame screen
+  - Selecting and constructing the next Tetromino
 
-### 3. Game Loop (`main.py`)
+### 4. Game Loop (`main.py`)
 - Controls overall game flow.
 - Responsibilities:
   - Spawning and updating the current falling piece
