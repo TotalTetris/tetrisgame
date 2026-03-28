@@ -1,7 +1,6 @@
 import random
 import pygame
 
-from abc import abstractmethod, ABC
 from board import Board
 from config import (
     Colors, Shapes
@@ -9,6 +8,9 @@ from config import (
 
 
 class Tetromino:
+    """
+    A Tetromino object.
+    """
     def __init__(self, shape, color, board: Board):
         self.shape = shape
         self.color = color
@@ -17,7 +19,7 @@ class Tetromino:
         self.y = -2
 
     @staticmethod
-    def shape_cells(shape):
+    def shape_cells(shape) -> list:
         """
         Convert a 4x4 shape into a list of (x, y) coordinates for occupied cells.
         """
@@ -29,7 +31,7 @@ class Tetromino:
         return cells
 
     @staticmethod
-    def rotate_shape(shape):
+    def rotate_shape(shape) -> list[str]:
         """
         Rotate a shape 90 degrees clockwise.
         """
@@ -41,7 +43,7 @@ class Tetromino:
                 rotated[x][size - y - 1] = matrix[y][x]
         return ["".join(row) for row in rotated]
 
-    def cells(self):
+    def cells(self) -> list[tuple[int, int]]:
         """Convert to x, y coordinates and return the conversion."""
         return self.shape_cells(self.shape)
 
@@ -83,7 +85,7 @@ class TetronimoFactory:
     """Builds Tetrominos."""
 
     @staticmethod
-    def draw_current_tetromino(surface: pygame.Surface, tetromino: Tetromino, board: Board):
+    def draw_current_tetromino(surface: pygame.Surface, tetromino: Tetromino, board: Board) -> None:
         """
         Draw the current moving tetromino on the board.
         """
@@ -105,6 +107,4 @@ class TetronimoFactory:
         shape = Shapes.SHAPES[idx]
         color = Colors.COLORS[idx]
         return Tetromino(shape, color, board)
-
-
 
