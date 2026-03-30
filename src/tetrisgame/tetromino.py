@@ -1,8 +1,8 @@
 import random
 import pygame
 
-from board import Board
-from config import Colors, Shapes
+from src.tetrisgame.board import Board
+from src.tetrisgame.config import Colors, Shapes
 
 
 class Tetromino:

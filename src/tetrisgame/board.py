@@ -2,7 +2,7 @@
 
 import pygame
 
-from cubes import Cube
+from src.tetrisgame.cubes import Cube
 from typing import List, Tuple
 
 
