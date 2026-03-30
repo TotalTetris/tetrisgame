@@ -2,7 +2,7 @@
 
 import pygame
 
-from config import Colors
+from src.tetrisgame.config import Colors
 
 
 class Cube:
