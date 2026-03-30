@@ -13,7 +13,8 @@ The project focuses on clear separation of responsibilities between game logic, 
 tetrisgame/
 ├─ src/
 │  └─ tetrisgame/
-│     ├─ __init__.py        
+│     ├─ __init__.py     
+│     ├─ tetromino.py   
 │     ├─ main.py            
 │     ├─ board.py           
 │     ├─ cubes.py           
@@ -43,7 +44,15 @@ The game is structured around three main concepts:
   - Clearing completed lines
   - Rendering the fixed (locked) blocks
 
-### 3. Game Loop (`main.py`)
+### 3. Tetromino (`tetromino.py`)
+- Represents Tetromino pieces that are essential to the game.
+- Responsibilities:
+  - Build Tetromino pieces from shapes provided in `config.py`
+  - Rotation and movement of Tetromino pieces on the grid
+  - Drawing the Tetromino on the pygame screen
+  - Selecting and constructing the next Tetromino
+
+### 4. Game Loop (`main.py`)
 - Controls overall game flow.
 - Responsibilities:
   - Spawning and updating the current falling piece
