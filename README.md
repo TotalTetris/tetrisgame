@@ -26,7 +26,7 @@ tetrisgame/
 
 ## Core Design
 
-The game is structured around three main concepts:
+The game is structured around four main concepts:
 
 ### 1. Cube (`cubes.py`)
 - The smallest unit of the game board.
